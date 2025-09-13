@@ -44,3 +44,6 @@ node main.js summary 8
 # To export expenses to CSV file
 node main.js export 
 
+# To search for an expense 
+node main.js search text 
+
