@@ -105,4 +105,23 @@ if (command === "list") {
     .join("\n");
   fs.writeFileSync(csvFilePath, header + rows);
   console.log(`Expenses exported to ${csvFilePath}`);
+} else if (command === "search") {
+  const keyword = args[1] ? args[1].toLowerCase() : "";
+  if (!keyword) {
+    console.log("Please provide a keyword to search for.");
+    process.exit(1);
+  }
+  const expenses = loadExpenses();
+  const results = expenses.filter((exp) =>
+    exp.description.toLowerCase().includes(keyword)
+  );
+  if (results.length === 0) {
+    console.log(`No expenses found with keyword: ${keyword}`);
+  } else {
+    results.forEach((expense) => {
+      console.log(
+        `ID: ${expense.id}, Description: ${expense.description}, Amount: ${expense.amount}, Date: ${expense.date}`
+      );
+    });
+  }
 }
